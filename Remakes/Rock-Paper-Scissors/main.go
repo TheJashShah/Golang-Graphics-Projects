@@ -66,6 +66,9 @@ type Game struct {
 	user_choice string
 	comp_choice string
 	result      string
+	player_wins int
+	comp_wins   int
+	draws       int
 }
 
 func main() {
@@ -92,6 +95,9 @@ func main() {
 		user_choice: "",
 		comp_choice: "",
 		result:      "",
+		player_wins: 0,
+		comp_wins:   0,
+		draws:       0,
 	}
 
 	err := ebiten.RunGame(game)
@@ -125,6 +131,10 @@ func (g *Game) Draw(screen *ebiten.Image) {
 	text.Draw(screen, user_str, game_font, 10, 125, color.White)
 	text.Draw(screen, comp_str, game_font, 10, 175, color.White)
 	text.Draw(screen, res, game_font, 10, 225, color.White)
+
+	text.Draw(screen, fmt.Sprintf("Player Wins: %v", g.player_wins), game_font, 10, 275, color.White)
+	text.Draw(screen, fmt.Sprintf("Comp Wins: %v", g.comp_wins), game_font, 10, 325, color.White)
+	text.Draw(screen, fmt.Sprintf("Draws: %v", g.draws), game_font, 10, 375, color.White)
 
 }
 
@@ -163,6 +173,8 @@ func (g *Game) ButtonPressed() {
 
 					if g.user_choice == g.comp_choice {
 						g.result = "It's a Draw!"
+						g.draws++
+
 					} else {
 
 						for k, v := range dicts {
@@ -170,11 +182,14 @@ func (g *Game) ButtonPressed() {
 							if k == g.user_choice && v == g.comp_choice {
 								g.result = "Comp Wins!"
 								comp_won = true
+								g.comp_wins++
+
 							}
 						}
 
 						if !comp_won {
 							g.result = "Player Wins!"
+							g.player_wins++
 						}
 					}
 
