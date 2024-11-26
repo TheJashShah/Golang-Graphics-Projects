@@ -3,5 +3,6 @@
 
 # Remakes
 Games/GUIs I've already made in Pygame. Includes:
-  1. Pong, made with ebitengine
-  2. Rock-Paper-Scissors, made with ebitengine.
+  1. Hangman, made with ebitengine.
+  2. Pong, made with ebitengine.
+  3. Rock-Paper-Scissors, made with ebitengine.
